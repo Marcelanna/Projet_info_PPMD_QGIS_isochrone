@@ -1,0 +1,43 @@
+
+@startuml
+
+class Requete{
+point
+resource
+costValue
+costType
+profile
+direction
+constraints
+geometryFormat
+distanceUnit
+timeUnit
+crs
+set()
+send()
+}
+
+class Reponse{
+point
+resource
+costValue
+costType
+profile
+direction
+constraints
+geometryFormat
+distanceUnit
+timeUnit
+crs
+geometry
+get()
+}
+
+
+together{
+    class Requete
+    class Reponse
+}
+
+
+@enduml

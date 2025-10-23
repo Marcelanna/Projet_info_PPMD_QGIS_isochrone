@@ -1,0 +1,21 @@
+@startuml
+
+actor Utilisateur
+participant "Plugin QGIS" as Plugin
+participant "Serveur Geoportail" as GPF
+
+Utilisateur -> Plugin : Choisir coordonnées du point
+Utilisateur -> Plugin : Choisir les ressouces
+Utilisateur -> Plugin : Choisir les paramètres de calculs (distance-temps...)
+Utilisateur -> Plugin : Valider la requête
+
+Plugin -> GPF : Requête à data.gouv.fr
+GPF -> GPF : Récupération des données
+
+GPF -> Plugin : Réponse à la requête avec les données récupérées
+
+Plugin -> Plugin : Traitement de la requête pour récupérer la géométrie de la zone
+
+Plugin -> Utilisateur : Affichage du polygone sur le canva
+
+@enduml

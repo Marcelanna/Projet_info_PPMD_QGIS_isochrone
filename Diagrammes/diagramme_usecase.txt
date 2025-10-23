@@ -1,0 +1,15 @@
+@startuml
+left to right direction
+actor "Utilisateur" as user
+rectangle QGIS {
+usecase "Installer le plugin" as UC1
+usecase "Lancer le plugin" as UC2
+usecase "Calcul isochrone selon les paramètres désirés" as UC3
+usecase "Reécupérer le polygone de sortie" as UC4
+}
+
+user --> UC1
+user --> UC2
+user --> UC3
+user --> UC4
+@enduml
