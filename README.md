@@ -11,11 +11,10 @@ A partir des paramètres, construction d'une requête (format json <-> dictionna
 
 ### Classes attendues d'un point algo (pas GQIS) :
     #### Requetes
-        Attributs : point, resource, costValue, costType, profile, direction, constraints, geometryFormat, distanceUnit, timeUnit, crs
+        Attributs : point, resource, costValue, costType, profile, direction, constraints, geometryFormat, distanceUnit, timeUnit, crs, dico
     #### Réponses
-        Attributs : point, resource, costValue, costType, profile, direction, constraints, geometryFormat, distanceUnit, timeUnit, crs, geometry (coord, type)
+        Attributs : code, point, resource, costValue, costType, profile, direction, constraints, geometryFormat, distanceUnit, timeUnit, crs, geometry (coord, type)
 
-# Project Title  
 ## Description  
 ## Installation  
 ## Usage
