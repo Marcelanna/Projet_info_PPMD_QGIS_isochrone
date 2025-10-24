@@ -6,6 +6,7 @@ Created on Fri Oct 24 09:17:02 2025
 """
 
 import requests
+# https://github.com/IGNF/gpf-filtered-getcapabilities/blob/main/main.py
 from reponse import Reponse
 
 class Requete():
