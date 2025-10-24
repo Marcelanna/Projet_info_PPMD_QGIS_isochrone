@@ -10,12 +10,15 @@ Utilisateur -> Plugin : Choisir les paramètres de calculs (distance-temps...)
 Utilisateur -> Plugin : Valider la requête
 
 Plugin -> GPF : Requête à data.gouv.fr
-GPF -> GPF : Récupération des données
 
-GPF -> Plugin : Réponse à la requête avec les données récupérées
-
-Plugin -> Plugin : Traitement de la requête pour récupérer la géométrie de la zone
-
-Plugin -> Utilisateur : Affichage du polygone sur le canva
+alt Requête réussie
+		GPF -> GPF : Récupération des données
+        GPF -> Plugin : Réponse à la requête avec les données récupérées
+        Plugin -> Plugin : Traitement de la requête pour récupérer la géométrie de la zone
+		Plugin -> Utilisateur : Affichage du polygone sur le canva
+    else Requête invalide
+        GPF -> Plugin : Renvoi du code erreur
+		Plugin -> Utilisateur : Affichage de l'erreur
+    end
 
 @enduml
