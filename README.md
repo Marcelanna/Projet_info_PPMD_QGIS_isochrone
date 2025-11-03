@@ -10,7 +10,7 @@ A partir des paramètres, construction d'une requête (format json <-> dictionna
     Diagramme de classes
     Diagramme d'activité ou de séquence
 
-### Classes attendues d'un point algo (pas GQIS) :
+### Classes attendues d'un point de vue algo (pas GQIS) :
     #### Requetes
         Attributs : point, resource, costValue, costType, profile, direction, constraints, geometryFormat, distanceUnit, timeUnit, crs, dico
     #### Réponses
@@ -23,7 +23,7 @@ A partir des paramètres, construction d'une requête (format json <-> dictionna
 
 ### Plugin QGIS
     PyQT
-    Lien entre les fonctions python QGIS et les classes
+    Lien entre les fonctions python QGIS et les classes (pour appeler les classes des fichiers, mettre .requete et .reponse dans les imports DONC ATTENTION DIFFERENTES VERSION DES APPELS)
     Récupération et affichage du json 
 
 ## Description  

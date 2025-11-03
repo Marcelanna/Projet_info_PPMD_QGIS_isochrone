@@ -31,6 +31,7 @@ from .resources import *
 from .calcul_isochrone_dialog import Projet_PPMDDialog
 import os.path
 
+from .requete import Requete
 
 class Projet_PPMD:
     """QGIS Plugin Implementation."""
@@ -192,9 +193,20 @@ class Projet_PPMD:
         # show the dialog
         self.dlg.show()
         # Run the dialog event loop
-        result = self.dlg.exec_()
-        # See if OK was pressed
-        if result:
-            # Do something useful here - delete the line containing pass and
-            # substitute with your code.
-            pass
+        self.dlg.exec_()
+
+        self.dlg.Calculer.clicked.connect(self.compute())
+        #self.btn1.clicked.connect(lambda:self.login_btn(self.usernameEdit.text(), self.passwordEdit.text()))
+
+    def compute(self):
+        print('yep')
+        x = self.dlg.x
+        y = self.dlg.y
+        print(x, y)
+        #req = Requete(55.31671488583523, -20.944842285775835, "bdtopo-valhalla", 240, "time", "car", "departure", "m", "second", "EPSG:4326")
+
+        #r  = req.send()
+  
+            
+            
+
