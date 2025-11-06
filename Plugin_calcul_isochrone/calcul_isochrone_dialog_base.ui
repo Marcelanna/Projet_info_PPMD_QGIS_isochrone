@@ -2,6 +2,9 @@
 <ui version="4.0">
  <class>Projet_PPMDDialogBase</class>
  <widget class="QDialog" name="Projet_PPMDDialogBase">
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -59,7 +62,7 @@
     <string>Coordonnées du point</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="x">
+  <widget class="QLineEdit" name="xbox">
    <property name="geometry">
     <rect>
      <x>220</x>
@@ -95,7 +98,7 @@
     <string>y :</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="y">
+  <widget class="QLineEdit" name="ybox">
    <property name="geometry">
     <rect>
      <x>220</x>
@@ -185,7 +188,7 @@
    </item>
    <item>
     <property name="text">
-     <string>pgrouting</string>
+     <string>bttopo-pgr</string>
     </property>
    </item>
   </widget>
@@ -201,19 +204,6 @@
    <property name="title">
     <string>Isochrone ou isodistance</string>
    </property>
-   <widget class="QTimeEdit" name="timeEdit">
-    <property name="enabled">
-     <bool>false</bool>
-    </property>
-    <property name="geometry">
-     <rect>
-      <x>280</x>
-      <y>60</y>
-      <width>118</width>
-      <height>22</height>
-     </rect>
-    </property>
-   </widget>
    <widget class="QRadioButton" name="radioDistance">
     <property name="geometry">
      <rect>
@@ -227,23 +217,10 @@
      <string>Distance</string>
     </property>
    </widget>
-   <widget class="QDoubleSpinBox" name="doubleSpinBox">
-    <property name="enabled">
-     <bool>false</bool>
-    </property>
-    <property name="geometry">
-     <rect>
-      <x>50</x>
-      <y>60</y>
-      <width>62</width>
-      <height>22</height>
-     </rect>
-    </property>
-   </widget>
    <widget class="QLabel" name="textm">
     <property name="geometry">
      <rect>
-      <x>120</x>
+      <x>150</x>
       <y>60</y>
       <width>21</width>
       <height>20</height>
@@ -266,6 +243,54 @@
      <string>Temps</string>
     </property>
    </widget>
+   <widget class="QLabel" name="textm_2">
+    <property name="geometry">
+     <rect>
+      <x>370</x>
+      <y>60</y>
+      <width>21</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>s</string>
+    </property>
+   </widget>
+   <widget class="QDoubleSpinBox" name="distance">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>60</y>
+      <width>131</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QDoubleSpinBox" name="temps">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>240</x>
+      <y>60</y>
+      <width>131</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="decimals">
+     <number>14</number>
+    </property>
+    <property name="maximum">
+     <double>82.989999999999995</double>
+    </property>
+    <property name="singleStep">
+     <double>0.000000000000000</double>
+    </property>
+   </widget>
   </widget>
   <widget class="QPushButton" name="pushButton">
    <property name="geometry">
@@ -284,25 +309,9 @@
  <resources/>
  <connections>
   <connection>
-   <sender>radioDistance</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>doubleSpinBox</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>109</x>
-     <y>188</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>100</x>
-     <y>220</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>radioTemps</sender>
    <signal>clicked(bool)</signal>
-   <receiver>timeEdit</receiver>
+   <receiver>temps</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
@@ -310,15 +319,15 @@
      <y>188</y>
     </hint>
     <hint type="destinationlabel">
-     <x>358</x>
-     <y>220</y>
+     <x>235</x>
+     <y>200</y>
     </hint>
    </hints>
   </connection>
   <connection>
    <sender>radioDistance</sender>
    <signal>clicked(bool)</signal>
-   <receiver>timeEdit</receiver>
+   <receiver>temps</receiver>
    <slot>setDisabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
@@ -326,24 +335,8 @@
      <y>188</y>
     </hint>
     <hint type="destinationlabel">
-     <x>358</x>
-     <y>220</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>radioTemps</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>doubleSpinBox</receiver>
-   <slot>setDisabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>339</x>
-     <y>188</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>100</x>
-     <y>220</y>
+     <x>235</x>
+     <y>200</y>
     </hint>
    </hints>
   </connection>
@@ -359,6 +352,38 @@
     </hint>
     <hint type="destinationlabel">
      <x>249</x>
+     <y>190</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>radioDistance</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>distance</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>109</x>
+     <y>188</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>225</x>
+     <y>190</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>radioTemps</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>distance</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>339</x>
+     <y>188</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>225</x>
      <y>190</y>
     </hint>
    </hints>

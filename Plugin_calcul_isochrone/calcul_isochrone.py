@@ -24,6 +24,8 @@
 from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication
 from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtWidgets import QAction
+from qgis.core import QgsMessageLog
+from qgis.core import QgsVectorLayer
 
 # Initialize Qt resources from file resources.py
 from .resources import *
@@ -190,23 +192,56 @@ class Projet_PPMD:
             self.first_start = False
             self.dlg = Projet_PPMDDialog()
 
+
+        self.dlg.Calculer.clicked.connect(self.compute)
         # show the dialog
         self.dlg.show()
+
         # Run the dialog event loop
         self.dlg.exec_()
-
-        self.dlg.Calculer.clicked.connect(self.compute())
         #self.btn1.clicked.connect(lambda:self.login_btn(self.usernameEdit.text(), self.passwordEdit.text()))
 
     def compute(self):
-        print('yep')
-        x = self.dlg.x
-        y = self.dlg.y
-        print(x, y)
+
+        x = self.dlg.xbox.text()
+        y = self.dlg.ybox.text()
+        ressources = self.dlg.resources.currentText()
+        bool_distance = self.dlg.radioDistance
+        if bool_distance.isChecked():
+            costValue = self.dlg.distance.value()
+            costValue = "distance"
+        
+        bool_time= self.dlg.radioTemps
+        if bool_time.isChecked():
+            costValue= self.dlg.temps.value()
+            costValue = "time"
+
+        if self.dlg.modetransport.currentText() == "voiture":
+            profile = "car"
+        
+        elif self.dlg.modetransport.currentText() == "marche":
+            profile = "pedestrian"
+
+        
+        if self.dlg.sensparcours.currentText() == "départ" :
+            direction = "departure"
+
+        elif self.dlg.sensparcours.currentText() == "arrivée":
+            direction = "arrival"
+
+
+        req = Requete(float(x), float(y), ressources, 240, costValue, profile, direction, "m", "second", "EPSG:4326")
+
         #req = Requete(55.31671488583523, -20.944842285775835, "bdtopo-valhalla", 240, "time", "car", "departure", "m", "second", "EPSG:4326")
 
-        #r  = req.send()
-  
-            
-            
+        r  = req.send()
+        QgsMessageLog.logMessage(str(r.geometry), 'MyPlugin')
+
+        uri = "point?crs=epsg:4326&field=id:integer"
+        scratchLayer = QgsVectorLayer(uri, "Area",  "memory")
+        #puismodifavec dataprovider pour json
+
+
+
+
 
