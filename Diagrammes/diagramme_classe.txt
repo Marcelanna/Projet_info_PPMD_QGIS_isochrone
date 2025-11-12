@@ -2,35 +2,36 @@
 @startuml
 
 class Requete{
-point
+x
+y
 resource
 costValue
 costType
 profile
 direction
-constraints
-geometryFormat
 distanceUnit
 timeUnit
 crs
-set()
+dico
 send()
 }
 
 class Reponse{
 point
 resource
+resourceVersion
 costValue
 costType
+timeUnit
+distanceUnit
 profile
 direction
+crs
+geometry
 constraints
 geometryFormat
 distanceUnit
-timeUnit
-crs
-geometry
-get()
+code
 }
 
 

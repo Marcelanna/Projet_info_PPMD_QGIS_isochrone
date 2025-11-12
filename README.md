@@ -22,14 +22,14 @@ A partir des paramètres, construction d'une requête (format json <-> dictionna
     Récupération et affichage du json 
 
 ## A faire
-### Mettre à jour diagrammes
+### Vérifier les diagrammes
     Diagramme de séquence (mettre numéro des étapes)
     Diagramme de classe avec les bons attributs et méthodes
 
 ### Plugin QGIS
     Arranger l'entrée des distances et des temps
 
-    
+
 ### Interaction canva
     Pas plus sur les apples de reqête
     Option de clic sur le canva pour indiquer le point de départ

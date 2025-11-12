@@ -4,8 +4,8 @@ actor "Utilisateur" as user
 rectangle QGIS {
 usecase "Installer le plugin" as UC1
 usecase "Lancer le plugin" as UC2
-usecase "Calcul isochrone selon les paramètres désirés" as UC3
-usecase "Reécupérer le polygone de sortie" as UC4
+usecase "Calcul isochrone/isodistance selon les paramètres désirés" as UC3
+usecase "Récupérer le polygone de sortie" as UC4
 }
 
 user --> UC1
