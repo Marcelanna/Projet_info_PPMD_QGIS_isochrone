@@ -21,11 +21,13 @@
  *                                                                         *
  ***************************************************************************/
 """
+
+import json
 from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication
 from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtWidgets import QAction
 from qgis.core import QgsMessageLog
-from qgis.core import QgsVectorLayer
+from qgis.core import QgsVectorLayer, QgsFeature, QgsProject, QgsJsonUtils
 
 # Initialize Qt resources from file resources.py
 from .resources import *
@@ -192,54 +194,70 @@ class Projet_PPMD:
             self.first_start = False
             self.dlg = Projet_PPMDDialog()
 
-
+        # Lien entre le bouton "Calculer" de l'interface et le lancement de la requête
         self.dlg.Calculer.clicked.connect(self.compute)
         # show the dialog
         self.dlg.show()
 
         # Run the dialog event loop
         self.dlg.exec_()
-        #self.btn1.clicked.connect(lambda:self.login_btn(self.usernameEdit.text(), self.passwordEdit.text()))
 
     def compute(self):
 
+        # récupération ses paramètres entrée sur l'interface
         x = self.dlg.xbox.text()
         y = self.dlg.ybox.text()
         ressources = self.dlg.resources.currentText()
+
+        # Choix entre isochrone et isodistance selon le bouton qui est sélectionné
         bool_distance = self.dlg.radioDistance
         if bool_distance.isChecked():
             costValue = self.dlg.distance.value()
-            costValue = "distance"
+            costType = "distance"
         
         bool_time= self.dlg.radioTemps
         if bool_time.isChecked():
             costValue= self.dlg.temps.value()
-            costValue = "time"
+            costType = "time"
 
+        # Choix du mode de transport (str de l'appel de la requête différent de celui entré dans l'interface)
         if self.dlg.modetransport.currentText() == "voiture":
             profile = "car"
         
         elif self.dlg.modetransport.currentText() == "marche":
             profile = "pedestrian"
 
-        
+        # Choix du sens du parcours (str de l'appel de la requête différent de celui entré dans l'interface)
         if self.dlg.sensparcours.currentText() == "départ" :
             direction = "departure"
 
         elif self.dlg.sensparcours.currentText() == "arrivée":
             direction = "arrival"
 
-
-        req = Requete(float(x), float(y), ressources, 240, costValue, profile, direction, "m", "second", "EPSG:4326")
-
-        #req = Requete(55.31671488583523, -20.944842285775835, "bdtopo-valhalla", 240, "time", "car", "departure", "m", "second", "EPSG:4326")
-
+        # Envoi de la requête
+        req = Requete(float(x), float(y), ressources, costValue, costType, profile, direction)
         r  = req.send()
-        QgsMessageLog.logMessage(str(r.geometry), 'MyPlugin')
+        QgsMessageLog.logMessage(str(r.code), 'MyPlugin')
 
-        uri = "point?crs=epsg:4326&field=id:integer"
-        scratchLayer = QgsVectorLayer(uri, "Area",  "memory")
-        #puismodifavec dataprovider pour json
+        # Conversion du json en text
+        geom_text = json.dumps(r.geometry)
+        # Le texte est converti en QgsGeometry
+        geometry = QgsJsonUtils.geometryFromGeoJson(geom_text)
+
+        # Création de la couche qui va acceullir le json
+        layer = QgsVectorLayer("Polygon", f"Iso_{costType}_{costValue}",  "memory")
+        pr = layer.dataProvider()
+
+        # Ajout du json à la couche
+        feature = QgsFeature()
+        feature.setGeometry(geometry)
+        pr.addFeatures([feature])
+        layer.updateExtents()
+
+        # Ajout de la couche au projet
+        QgsProject.instance().addMapLayer(layer)
+
+
 
 
 

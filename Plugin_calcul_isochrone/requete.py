@@ -10,22 +10,69 @@ import requests
 from .reponse import Reponse
 
 class Requete():
+    """
+    Envoie de la requete au serveur Geoplateforme à partir des pamaètre d'entrée 
+    et récupération de la réponse depuis la classe Reponse 
+    """
     
-    def __init__(self, x, y,resource,costValue,costType,profile,direction,distanceUnit,timeUnit,crs,constraints = []):
-        self.point = f"{x},{y}" # à voir s'il faut créer ne classe à part
-        self.resource = resource # trois possibilités : bdtopo-valhalla, bdtopo-osrm, pgrouting
-        self.costValue = costValue # distance en m ou temps en s de l'isochrone
-        self.costType = costType # time ou distance
-        self.profile = profile # pedestrian ou car
-        self.direction = direction # departure ou arrival
-        self.constraints = constraints # vide à voir plus tard
-        self.distanceUnit = distanceUnit # meter fixe ?
-        self.timeUnit = timeUnit # second fixe ?
-        self.crs = crs # EPSG:4326 ou fixe ?
-        self.dico = {"point":self.point,"resource":self.resource,"resourceVersion":"2025-09-25","costType":self.costType,"costValue":self.costValue,"timeUnit":self.timeUnit,"profile":self.profile,"direction":self.direction,"crs":self.crs}
+    def __init__(self, x, y,resource,costValue,costType,profile,direction,distanceUnit = "m",timeUnit = "second",crs = "EPSG:4326"):
+        """
+        Initialisation des attributs de la classe à partir des arguments rensignés pour la classe
+
+        Parameters
+        ----------
+        x : float
+            Longitude (E en planimètrique) du point d'intérêt.
+        y : float
+            Latitude (N en planimètrique) du point d'intérêt.
+        resource : str
+            Ressource utilisée pour le calcul, trois possibilités : bdtopo-valhalla, bdtopo-osrm, bdtopo-pgr.
+        costValue : int
+            Valeur du coût utilisé pour le calcul (peut être une distance ou un temps).
+        costType : str
+            Type du coût utilisé pour le calcul, pour le temps : "time", pour la distance : "distance" .
+        profile : str
+            Mode de déplacement utilisé pour le calcul, pour un piéton : "pedestrian", pour une voiture : "car".
+        direction : str
+            Sens du parcours, pour un point de départ : "departure", pour un point d'arrivée : "arrival".
+        distanceUnit : str
+            Unité pour la distance. Par défaut, fixé au mètre.
+        timeUnit : str
+            Unité pour le temps. Par défaut, fixé à la seconde.
+        crs : str
+            Système de projection. Par défaut, fixé à l'EPSG:4326.
+
+        Returns
+        -------
+        None.
+
+        """
+
+        self.point = f"{x},{y}"
+        self.resource = resource 
+        self.costValue = costValue 
+        self.costType = costType
+        self.profile = profile
+        self.direction = direction
+        self.distanceUnit = distanceUnit
+        self.timeUnit = timeUnit
+        self.crs = crs
+
+        # Création d'un dictionnaire pour consruire la requête
+        self.dico = {"point":self.point,"resource":self.resource, "costType":self.costType,"costValue":self.costValue,"timeUnit":self.timeUnit,"profile":self.profile,"direction":self.direction,"crs":self.crs}
 
     def send(self):
-        # URL pour la requête de calcul d'isochrone de Geoportail
+        """
+        Envoie de la requête auprès du serveur Geoplateforme
+
+        Returns
+        -------
+        response : Objet de la classe Response
+            Reponse de la requete : code de la réponse (détection erreur) et géometrie de la réponse si requête valide.
+
+        """
+
+        # URL pour la requête de calcul d'isochrone de Geoplateforme
         url = 'https://data.geopf.fr/navigation/isochrone'
   
         # Envoie de la requête avec les paramètres d'entrée
@@ -35,27 +82,4 @@ class Requete():
         response = Reponse(r.status_code, r.json())
         return response
     
-
-if __name__ == '__main__':
-
-    req = Requete(55.31671488583523, -20.944842285775835, "bdtopo-valhalla", 240, "time", "car", "departure", "m", "second", "EPSG:4326")
-    r  = req.send()
     
-    print("Code : ", r.code)
-    print("Json : ", r.geometry)
-    
-    ### Stock de var au cas où
-    # url = 'https://data.geopf.fr/navigation/isochrone'
-    # dico = req.dico
-
-    # r = requests.get(url, dico)
-    # # check status code for response received
-    # # success code - 200
-    # print(r)
-
-    # # print content of request
-    # print(r.content)
-
-    #https://data.geopf.fr/navigation/isochrone?gp-access-lib=3.4.2&resource=bdtopo-valhalla&point=55.31671488583523,-20.944842285775835&direction=departure&costType=time&costValue=240&profile=car&timeUnit=second&distanceUnit=meter&crs=EPSG:4326&constraints={%22constraintType%22:%22banned%22,%22key%22:%22wayType%22,%22operator%22:%22=%22,%22value%22:%22autoroute%22}|{%22constraintType%22:%22banned%22,%22key%22:%22wayType%22,%22operator%22:%22=%22,%22value%22:%22pont%22}
-    # r = requests.get('https://data.geopf.fr/navigation/isochrone', dico)
-    #dico = {"point":"55.31671488583523,-20.944842285775835","resource":"bdtopo-valhalla","resourceVersion":"2025-09-25","costType":"time","costValue":240,"timeUnit":"second","profile":"car","direction":"departure","crs":"EPSG:4326"}
