@@ -32,20 +32,20 @@
   <widget class="QComboBox" name="modetransport">
    <property name="geometry">
     <rect>
-     <x>200</x>
+     <x>140</x>
      <y>270</y>
-     <width>91</width>
+     <width>121</width>
      <height>22</height>
     </rect>
    </property>
    <item>
     <property name="text">
-     <string>voiture</string>
+     <string>Voiture</string>
     </property>
    </item>
    <item>
     <property name="text">
-     <string>marche</string>
+     <string>Marche</string>
     </property>
    </item>
   </widget>
@@ -111,7 +111,7 @@
   <widget class="QLabel" name="textmodetransport">
    <property name="geometry">
     <rect>
-     <x>90</x>
+     <x>30</x>
      <y>270</y>
      <width>101</width>
      <height>20</height>
@@ -124,7 +124,7 @@
   <widget class="QLabel" name="textsenparcours">
    <property name="geometry">
     <rect>
-     <x>110</x>
+     <x>30</x>
      <y>300</y>
      <width>101</width>
      <height>20</height>
@@ -137,20 +137,20 @@
   <widget class="QComboBox" name="sensparcours">
    <property name="geometry">
     <rect>
-     <x>200</x>
+     <x>140</x>
      <y>300</y>
-     <width>91</width>
+     <width>121</width>
      <height>22</height>
     </rect>
    </property>
    <item>
     <property name="text">
-     <string>départ</string>
+     <string>Depuis le point</string>
     </property>
    </item>
    <item>
     <property name="text">
-     <string>arrivée</string>
+     <string>Vers le point</string>
     </property>
    </item>
   </widget>
@@ -220,7 +220,7 @@
    <widget class="QLabel" name="textm">
     <property name="geometry">
      <rect>
-      <x>150</x>
+      <x>130</x>
       <y>60</y>
       <width>21</width>
       <height>20</height>
@@ -243,17 +243,17 @@
      <string>Temps</string>
     </property>
    </widget>
-   <widget class="QLabel" name="textm_2">
+   <widget class="QLabel" name="textmin">
     <property name="geometry">
      <rect>
-      <x>370</x>
+      <x>420</x>
       <y>60</y>
       <width>21</width>
       <height>20</height>
      </rect>
     </property>
     <property name="text">
-     <string>s</string>
+     <string>min</string>
     </property>
    </widget>
    <widget class="QDoubleSpinBox" name="distance">
@@ -262,33 +262,74 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>20</x>
+      <x>30</x>
       <y>60</y>
-      <width>131</width>
+      <width>101</width>
       <height>22</height>
      </rect>
     </property>
+    <property name="decimals">
+     <number>0</number>
+    </property>
+    <property name="maximum">
+     <double>99999999999.000000000000000</double>
+    </property>
    </widget>
-   <widget class="QDoubleSpinBox" name="temps">
+   <widget class="QDoubleSpinBox" name="temps_h">
     <property name="enabled">
      <bool>false</bool>
     </property>
     <property name="geometry">
      <rect>
-      <x>240</x>
+      <x>220</x>
       <y>60</y>
-      <width>131</width>
+      <width>81</width>
       <height>22</height>
      </rect>
     </property>
     <property name="decimals">
-     <number>14</number>
+     <number>0</number>
     </property>
     <property name="maximum">
-     <double>82.989999999999995</double>
+     <double>59.000000000000000</double>
     </property>
     <property name="singleStep">
-     <double>0.000000000000000</double>
+     <double>1.000000000000000</double>
+    </property>
+   </widget>
+   <widget class="QDoubleSpinBox" name="temps_min">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>330</x>
+      <y>60</y>
+      <width>81</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="decimals">
+     <number>0</number>
+    </property>
+    <property name="maximum">
+     <double>59.000000000000000</double>
+    </property>
+    <property name="singleStep">
+     <double>1.000000000000000</double>
+    </property>
+   </widget>
+   <widget class="QLabel" name="texth">
+    <property name="geometry">
+     <rect>
+      <x>310</x>
+      <y>60</y>
+      <width>21</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>h</string>
     </property>
    </widget>
   </widget>
@@ -305,41 +346,37 @@
     <string>Annuler</string>
    </property>
   </widget>
+  <widget class="QPushButton" name="Cliquer_carte">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>40</y>
+     <width>131</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Cliquer sur la carte</string>
+   </property>
+  </widget>
  </widget>
+ <tabstops>
+  <tabstop>xbox</tabstop>
+  <tabstop>ybox</tabstop>
+  <tabstop>Cliquer_carte</tabstop>
+  <tabstop>resources</tabstop>
+  <tabstop>radioDistance</tabstop>
+  <tabstop>radioTemps</tabstop>
+  <tabstop>distance</tabstop>
+  <tabstop>temps_h</tabstop>
+  <tabstop>temps_min</tabstop>
+  <tabstop>modetransport</tabstop>
+  <tabstop>sensparcours</tabstop>
+  <tabstop>Calculer</tabstop>
+  <tabstop>pushButton</tabstop>
+ </tabstops>
  <resources/>
  <connections>
-  <connection>
-   <sender>radioTemps</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>temps</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>339</x>
-     <y>188</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>235</x>
-     <y>200</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>radioDistance</sender>
-   <signal>clicked(bool)</signal>
-   <receiver>temps</receiver>
-   <slot>setDisabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>109</x>
-     <y>188</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>235</x>
-     <y>200</y>
-    </hint>
-   </hints>
-  </connection>
   <connection>
    <sender>pushButton</sender>
    <signal>clicked(bool)</signal>
@@ -385,6 +422,70 @@
     <hint type="destinationlabel">
      <x>225</x>
      <y>190</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>radioTemps</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>temps_h</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>339</x>
+     <y>188</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>235</x>
+     <y>200</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>radioDistance</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>temps_h</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>109</x>
+     <y>188</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>235</x>
+     <y>200</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>radioDistance</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>temps_min</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>109</x>
+     <y>188</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>390</x>
+     <y>220</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>radioTemps</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>temps_min</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>339</x>
+     <y>188</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>390</x>
+     <y>220</y>
     </hint>
    </hints>
   </connection>

@@ -2,14 +2,23 @@
 
 actor Utilisateur
 participant "Plugin QGIS" as Plugin
-participant "Serveur Geoportail" as GPF
+participant "Canva QGIS" as Canva
+participant "Serveur Geoplateforme" as GPF
 
-Utilisateur -> Plugin : Choisir coordonnées du point
+alt Choisir un point sur le canva GQIS
+		Utilisateur -> Plugin : Choisir de cliquer un point sur le canva
+		Plugin -> Canva : Attente d'un signal de clic sur le canva
+		Utilisateur -> Canva : Cliquer sur un point du canva
+		Canva --> Plugin : Renvoyer les coordonnées du point cliqué
+	else Entrer les coordonnées à la main
+		Utilisateur -> Plugin : Entrer les coordonnées du point
+	end
+	
 Utilisateur -> Plugin : Choisir les ressouces
 Utilisateur -> Plugin : Choisir les paramètres de calculs (distance-temps...)
 Utilisateur -> Plugin : Valider la requête
 
-Plugin -> GPF : Requête à data.gouv.fr
+Plugin -> GPF : Requête au serveur Geoplateforme
 
 alt Requête réussie
 		GPF -> GPF : Récupération des données
@@ -17,7 +26,7 @@ alt Requête réussie
         Plugin -> Plugin : Traitement de la requête pour récupérer la géométrie de la zone
 		Plugin -> Utilisateur : Affichage du polygone sur le canva
     else Requête invalide
-        GPF -> Plugin : Renvoi du code erreur
+        GPF -> Plugin : Renvoi du code et du message de l'erreur
 		Plugin -> Utilisateur : Affichage de l'erreur
     end
 

@@ -26,8 +26,11 @@ class Reponse():
 
         """
 
+        dict_error = {200:"Opération réussie",400:"Paramètres invalides",403:"Non autorisé", 404:"Non trouvé"}
+
         # code pour vérifier que la requête à bien abouti
         self.code = code
+        self.message = dict_error[code]
 
         # Création d'un attribut pour chaque clé du dictionnaire : 
         # 'point', 'resource', 'resourceVersion', 'costType', 'costValue', 
